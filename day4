@@ -1,0 +1,54 @@
+def count_xmas_patterns(grid):
+    if not grid or not grid[0]:
+        return 0
+    
+    rows = len(grid)
+    cols = len(grid[0])
+    count = 0
+    
+    for r in range(1, rows - 1):
+        for c in range(1, cols - 1):
+            if grid[r][c] == 'A':
+                if ((grid[r-1][c-1] == 'M' and grid[r+1][c+1] == 'S') and
+                    (grid[r-1][c+1] == 'M' and grid[r+1][c-1] == 'S')):
+                    count += 1
+                elif ((grid[r-1][c-1] == 'S' and grid[r+1][c+1] == 'M') and
+                      (grid[r-1][c+1] == 'M' and grid[r+1][c-1] == 'S')):
+                    count += 1
+                elif ((grid[r-1][c-1] == 'M' and grid[r+1][c+1] == 'S') and
+                      (grid[r-1][c+1] == 'S' and grid[r+1][c-1] == 'M')):
+                    count += 1
+                elif ((grid[r-1][c-1] == 'S' and grid[r+1][c+1] == 'M') and
+                      (grid[r-1][c+1] == 'S' and grid[r+1][c-1] == 'M')):
+                    count += 1
+    
+    return count
+
+def main():
+    print("Enter: ")
+    grid = []
+    
+    while True:
+        line = input().strip()
+        if not line:
+            break
+        grid.append(line)
+    
+    example_grid = [
+        ".M.S......",
+        "..A..MSMS.",
+        ".M.S.MAA..",
+        "..A.ASMSM.",
+        ".M.S.M....",
+        "..........",
+        "S.S.S.S.S.",
+        ".A.A.A.A..",
+        "M.M.M.M.M.",
+        ".........."
+    ]
+    
+    result = count_xmas_patterns(grid if grid else example_grid)
+    print(f"The X-MAS pattern appears {result} times in the grid.")
+
+if __name__ == "__main__":
+    main()
